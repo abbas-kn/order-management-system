@@ -1,39 +1,21 @@
-<nav class="bg-white shadow">
-  <div class="mx-auto container px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16">
-      <div routerLink="/" class="flex flex-shrink-0 items-center">
-        <img
-          class="block h-12 w-auto lg:hidden"
-          src="./assets/images/logo.svg"
-          alt="Logo"
-        />
-        <!-- <img
-          class="hidden h-12 w-auto lg:block"
-          src="./assets/images/logo.svg"
-          alt="Logo"
-        /> -->
+  <aside
+    class="ml-[-100%] fixed z-10 top-0 pb-3 px-6 w-full flex flex-col justify-between h-screen border-r bg-white transition duration-300 md:w-4/12 lg:ml-0 lg:w-[20%] xl:w-[35%] 2xl:w-[19%]">
+    <div>
+      <div class="mt-8 text-center">
+        <img src="./assets/images/oms.png" alt="" class="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28">
+        <h5 class="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">Order Management System</h5>
       </div>
-
-      <div class="hidden sm:ml-auto sm:flex sm:space-x-8 main-nav">
-        <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-        <a routerLink="/dashboard" routerLinkActive="active-link">Dashboard</a>
-        <a routerLink="/completedorders" routerLinkActive="active-link"
-          >Completed Orders</a
-        >
-        <a routerLink="/orders" routerLinkActive="active-link">New Orders</a>
+      <div class="main-nav">
+        <ul class="space-y-2 tracking-wide mt-8">
+          <li>
+            <a routerLink="/dashboard" routerLinkActive="active-link">Dashboard</a>
+          </li>
+          <li>
+            <a routerLink="/completedorders" routerLinkActive="active-link">Completed Orders</a>
+          </li>
+          <li> <a routerLink="/orders" routerLinkActive="active-link">New Orders</a>
+          </li>
+        </ul>
       </div>
     </div>
-  </div>
-
-  <!-- Mobile menu, show/hide based on menu state. -->
-  <div class="sm:hidden" id="mobile-menu">
-    <div class="space-y-1 pb-3 pt-2">
-      <!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
-      <a routerLink="/dashboard" routerLinkActive="active-link">Dashboard</a>
-      <a routerLink="/completedorders" routerLinkActive="active-link"
-        >Completed Orders</a
-      >
-      <a routerLink="/orders" routerLinkActive="active-link">New Orders</a>
-    </div>
-  </div>
-</nav>
+  </aside>
