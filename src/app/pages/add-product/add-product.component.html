@@ -1,0 +1,13 @@
+<div>
+    <label for ="name">Product Name:</label>
+    <input id="name" type="text" [(ngModel)]="productName" placeholder="Enter Product Name" >
+
+    <label for="price">Product Price:</label>
+    <input id="price" type="number" [(ngModel)]="productPrice" placeholder="Enter Product Price">
+
+    <button (click)="addProduct()">Add Product</button>
+</div>
+
+<div *ngFor="let product of products">
+  <p>{{ product.name }}: {{ product.price | currency }}</p>
+</div>

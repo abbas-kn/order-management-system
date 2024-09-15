@@ -1,12 +1,14 @@
 import { Injectable, signal } from '@angular/core';
 import { CompletedOrder } from '../models/completedOrder.model';
 import { NewOrder } from '../models/newOrder.model';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LeadsService {
   private leadIdCounter = 1;
+  private orderCOuntKey='orderCount';
   newOrders = signal<NewOrder[]>(this.getLeadsFromLocalStorage());
   completedOrders = signal<CompletedOrder[]>(
     this.getCustomersFromLocalStorage()
@@ -28,23 +30,33 @@ export class LeadsService {
 
   private saveLeadsToLocalStorage(newOrders: NewOrder[]): void {
     localStorage.setItem('newOrders', JSON.stringify(newOrders));
+    
   }
+  getOrderCount():Observable<number>{
+    const orderCount=localStorage.getItem(this.orderCOuntKey);
+    return of(orderCount?Number(orderCount):0);
+  }
+
 
   private saveCustomersToLocalStorage(completedOrders: CompletedOrder[]): void {
     localStorage.setItem('completedOrders', JSON.stringify(completedOrders));
   }
 
-  addLead(name: string, email: string, phone: string) {
+  addLead(name: string, email: string, phone: string,productName:string,quantity:number) {
     const newLead: NewOrder = {
       id: this.leadIdCounter++,
       name,
       email,
       phone,
       status: 'New',
+      productName,
+      quantity
     };
     const updatedLeads = [...this.newOrders(), newLead];
     this.newOrders.set(updatedLeads);
     this.saveLeadsToLocalStorage(updatedLeads);
+    const oldCount=localStorage.getItem(this.orderCOuntKey)
+    localStorage.setItem(this.orderCOuntKey,JSON.stringify(Number(oldCount)+1))
   }
 
   completeOrder(leadId: number) {

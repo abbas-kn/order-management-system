@@ -4,4 +4,6 @@ export interface NewOrder {
   email: string;
   phone: string;
   status: 'New' | 'Confirmed';
+  productName: string;
+  quantity:number,
 }
