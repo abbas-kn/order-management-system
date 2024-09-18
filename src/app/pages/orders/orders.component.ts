@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderCreateComponent } from './order-create/order-create.component';
-import { FormsModule } from '@angular/forms'; 
 import { LeadsService } from '../../shared/services/leads.service';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -16,21 +16,30 @@ import { CommonModule } from '@angular/common';
 export class OrdersComponent implements OnInit {
   isOrder: boolean = true;
   orderCount:number;
-  addOrderFlag:boolean;
+  orderFlag: boolean ;
+  private flagSubscription: Subscription | null = null;
+
   constructor(public leadService:LeadsService){
     this.orderCount=0;
-    this.addOrderFlag=true;
-    this.setOrderCount();
-    this.setAddOrderFlag();
+    this.orderFlag=true;
   }
   ngOnInit(): void {
-    this.setOrderCount()
+    
+    this.setFlag();
+    this.setOrderCount();
+  }
+
+  setFlag(){
+    this.flagSubscription = this.leadService.addOrderFlag$.subscribe(flag => {
+      this.orderFlag = flag;
+    });
   }
 
   setOrderCount(){
     this.leadService.getOrderCount().subscribe(count=>{
       this.orderCount=count;
-      this.setAddOrderFlag();
+      this.leadService.setAddOrderFlag();
+
     });
   }
 
@@ -42,10 +51,11 @@ export class OrdersComponent implements OnInit {
   viewOrders() {
     this.isOrder = true;
   }
-  setAddOrderFlag(){
-    if (this.orderCount<2)
-      this.addOrderFlag=true;
-    else 
-      this.addOrderFlag=false;
+
+  ngOnDestroy(): void {
+    if (this.flagSubscription) {
+      this.flagSubscription.unsubscribe();
+    }
   }
+
 }

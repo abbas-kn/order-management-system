@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { CompletedOrder } from '../../shared/models/completedOrder.model';
 import { NewOrder } from '../../shared/models/newOrder.model';
 import { LeadsService } from '../../shared/services/leads.service';
+import { AuthService } from '../../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,10 +16,16 @@ export class DashboardComponent {
   newOrders: NewOrder[] = [];
   completedOrders: CompletedOrder[] = [];
 
-  constructor(private leadsService: LeadsService) {
+  constructor(private leadsService: LeadsService, private authService:AuthService) {
     effect(() => {
       this.newOrders = this.leadsService.newOrders();
       this.completedOrders = this.leadsService.completedOrders();
     });
   }
+
+  logOut(){
+    this.authService.logOut();
+  }
+
+
 }

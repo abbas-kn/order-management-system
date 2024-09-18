@@ -1,21 +1,24 @@
 import { Injectable, signal } from '@angular/core';
 import { CompletedOrder } from '../models/completedOrder.model';
 import { NewOrder } from '../models/newOrder.model';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LeadsService {
   private leadIdCounter = 1;
-  private orderCOuntKey='orderCount';
+  private orderCountKey='orderCount';
   newOrders = signal<NewOrder[]>(this.getLeadsFromLocalStorage());
   completedOrders = signal<CompletedOrder[]>(
     this.getCustomersFromLocalStorage()
   );
+  private addOrderFlagSubject = new BehaviorSubject<boolean>(true);
+  addOrderFlag$: Observable<boolean> = this.addOrderFlagSubject.asObservable();
 
   constructor() {
     this.leadIdCounter = this.newOrders().length + 1;
+    this.setAddOrderFlag();
   }
 
   private getLeadsFromLocalStorage(): NewOrder[] {
@@ -33,7 +36,7 @@ export class LeadsService {
     
   }
   getOrderCount():Observable<number>{
-    const orderCount=localStorage.getItem(this.orderCOuntKey);
+    const orderCount=localStorage.getItem(this.orderCountKey);
     return of(orderCount?Number(orderCount):0);
   }
 
@@ -55,8 +58,8 @@ export class LeadsService {
     const updatedLeads = [...this.newOrders(), newLead];
     this.newOrders.set(updatedLeads);
     this.saveLeadsToLocalStorage(updatedLeads);
-    const oldCount=localStorage.getItem(this.orderCOuntKey)
-    localStorage.setItem(this.orderCOuntKey,JSON.stringify(Number(oldCount)+1))
+    this.storeOrderCount(+1);
+    this.setAddOrderFlag();
   }
 
   completeOrder(leadId: number) {
@@ -75,6 +78,20 @@ export class LeadsService {
       const completedOrders = [...this.completedOrders(), newOrder];
       this.completedOrders.set(completedOrders);
       this.saveCustomersToLocalStorage(completedOrders);
+      this.storeOrderCount(-1);
+      this.setAddOrderFlag();
     }
+  }
+  getAddOrderFlagValue(): boolean {
+    return this.addOrderFlagSubject.getValue();
+  } 
+  private storeOrderCount(value:number){
+    const oldCount=localStorage.getItem(this.orderCountKey);
+    localStorage.setItem(this.orderCountKey,JSON.stringify(Number(oldCount)+value));
+  }
+  setAddOrderFlag(){
+    const orderCount=localStorage.getItem(this.orderCountKey);
+    const isAddOrderAllowed = Number(orderCount) < 5;
+    this.addOrderFlagSubject.next(isAddOrderAllowed);
   }
 }

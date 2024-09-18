@@ -1,0 +1,54 @@
+<div class="loginContainer">
+    <div class="LoginForm">
+        <h2>Login</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="loginInput">
+                <input 
+                formControlName="email"
+                type="text"
+                name="email"
+                placeholder="Enter Email"
+                required
+                >
+                <div
+                *ngIf="
+                  loginForm.get('email')?.touched && loginForm.get('email')?.invalid
+                "
+              >
+                <small *ngIf="loginForm.get('email')?.errors?.['required']"
+                  >Email is required.</small
+                >
+                <small *ngIf="loginForm.get('email')?.errors?.['email']"
+                  >Enter a valid email address.</small
+                >
+              </div>
+            </div>
+
+            <div class="loginInput">
+                <input 
+                type="password"
+                formControlName="password"
+                placeholder="Enter password"
+                required
+                >
+                <div
+                *ngIf="
+                  loginForm.get('password')?.touched && loginForm.get('password')?.invalid
+                "
+              >
+                <small *ngIf="loginForm.get('password')?.errors?.['required']"
+                  >Password is required.</small
+                >
+                <small *ngIf="loginForm.get('password')?.errors?.['minlength']"
+                  >Password must be 6 digits long</small
+                >
+              </div>
+            </div>
+            <button type="submit"
+             [disabled]="loginForm.invalid" 
+            class="btn btn-primary btn-block">
+                Login
+              </button>
+        </form>
+    </div>
+</div>
