@@ -1,7 +1,7 @@
 import { Component, NgModule, OnInit } from '@angular/core';
 import { ProductService } from '../../shared/services/product/product.service';
 import { Product } from '../../shared/models/products.model';
-import { FormsModule } from '@angular/forms'; 
+import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms'; 
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -15,10 +15,15 @@ export class AddProductComponent implements OnInit{
   products:Product[]=[];
   productName:string;
   productPrice:number;
+  productForm: FormGroup;
 
   constructor(private productService:ProductService){
     this.productName='';
     this.productPrice=0;
+    this.productForm = new FormGroup({
+      productName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      productPrice: new FormControl('', [Validators.required])
+    })
   }
   ngOnInit(): void {
     this.loadProducts();
