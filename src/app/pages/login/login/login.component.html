@@ -1,54 +1,31 @@
-<div class="loginContainer">
-    <div class="LoginForm">
-        <h2>Login</h2>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div class="loginInput">
-                <input 
-                formControlName="email"
-                type="text"
-                name="email"
-                placeholder="Enter Email"
-                required
-                >
-                <div
-                *ngIf="
-                  loginForm.get('email')?.touched && loginForm.get('email')?.invalid
-                "
-              >
-                <small *ngIf="loginForm.get('email')?.errors?.['required']"
-                  >Email is required.</small
-                >
-                <small *ngIf="loginForm.get('email')?.errors?.['email']"
-                  >Enter a valid email address.</small
-                >
-              </div>
-            </div>
+<div class="flex justify-center items-center h-screen">
+  <div class="space-y-12 justify-center align-middle sm:space-y-3 p-6 rounded-md shadow border-gray-900 text-center"> <!-- Added text-center here -->
+    <h1 class="text-base font-semibold leading-6 text-gray-900">
+      Login
+    </h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="loginInput">
+        <input formControlName="email" type="text" name="email" placeholder="Enter Email" required
+          class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
+        <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+          <small class="text-red-500" *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</small>
+          <small class="text-red-500" *ngIf="loginForm.get('email')?.errors?.['email']">Enter a valid email address.</small>
+        </div>
+      </div>
 
-            <div class="loginInput">
-                <input 
-                type="password"
-                formControlName="password"
-                placeholder="Enter password"
-                required
-                >
-                <div
-                *ngIf="
-                  loginForm.get('password')?.touched && loginForm.get('password')?.invalid
-                "
-              >
-                <small *ngIf="loginForm.get('password')?.errors?.['required']"
-                  >Password is required.</small
-                >
-                <small *ngIf="loginForm.get('password')?.errors?.['minlength']"
-                  >Password must be 6 digits long</small
-                >
-              </div>
-            </div>
-            <button type="submit"
-             [disabled]="loginForm.invalid" 
-            class="btn btn-primary btn-block">
-                Login
-              </button>
-        </form>
-    </div>
+      <div class="loginInput">
+        <input type="password" formControlName="password" placeholder="Enter password" required
+          class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
+        <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+          <small class="text-red-500" *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</small>
+          <small class="text-red-500" *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be 6 digits long</small>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid"
+        class="inline-flex justify-center rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-sm disabled:bg-gray-500 hover:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">
+        Login
+      </button>
+    </form>
+  </div>
 </div>

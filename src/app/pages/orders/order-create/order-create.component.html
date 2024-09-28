@@ -4,9 +4,7 @@
   class="mt-8 p-6 rounded-md shadow border-gray-900"
 >
   <div class="space-y-12 sm:space-y-16">
-    <div
-      class="mt-10 space-y-8 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0"
-    >
+    <div class="space-y-8 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:pb-0">
       <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
         <label
           for="name"
@@ -23,7 +21,7 @@
             required
             placeholder="Name"
             appAlphabetsOnly
-            class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-700 sm:max-w-xs sm:text-sm sm:leading-6"
+            class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
           />
         </div>
         <div
@@ -32,10 +30,10 @@
           "
           class="text-red-500"
         >
-          <small *ngIf="orderForm.get('name')?.errors?.['required']"
+          <small class="text-red-500" *ngIf="orderForm.get('name')?.errors?.['required']"
             >Name is required.</small
           >
-          <small *ngIf="orderForm.get('name')?.errors?.['minlength']"
+          <small class="text-red-500" *ngIf="orderForm.get('name')?.errors?.['minlength']"
             >Name must be at least 3 characters long.</small
           >
         </div>
@@ -56,7 +54,7 @@
             autocomplete="given-email"
             required
             placeholder="Email"
-            class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-700 sm:max-w-xs sm:text-sm sm:leading-6"
+            class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
           />
         </div>
         <div
@@ -64,10 +62,10 @@
             orderForm.get('email')?.touched && orderForm.get('email')?.invalid
           "
         >
-          <small *ngIf="orderForm.get('email')?.errors?.['required']"
+          <small class="text-red-500" *ngIf="orderForm.get('email')?.errors?.['required']"
             >Email is required.</small
           >
-          <small *ngIf="orderForm.get('email')?.errors?.['email']"
+          <small class="text-red-500" *ngIf="orderForm.get('email')?.errors?.['email']"
             >Enter a valid email address.</small
           >
         </div>
@@ -96,89 +94,86 @@
             orderForm.get('phone')?.touched && orderForm.get('phone')?.invalid
           "
         >
-          <small *ngIf="orderForm.get('phone')?.errors?.['required']"
+          <small class="text-red-500" *ngIf="orderForm.get('phone')?.errors?.['required']"
             >Phone is required.</small
           >
-          <small *ngIf="orderForm.get('phone')?.errors?.['pattern']"
+          <small class="text-red-500" *ngIf="orderForm.get('phone')?.errors?.['pattern']"
             >Phone number must contain only digits.</small
           >
-          <small *ngIf="orderForm.get('phone')?.errors?.['minlength']"
+          <small class="text-red-500" *ngIf="orderForm.get('phone')?.errors?.['minlength']"
             >Phone number must be at least 10 digits long.</small
           >
-          <small *ngIf="orderForm.get('phone')?.errors?.['maxlength']"
+          <small class="text-red-500" *ngIf="orderForm.get('phone')?.errors?.['maxlength']"
             >Phone number cannot be longer than 15 digits.</small
           >
         </div>
       </div>
-    </div>
-
-
-    <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-      <label
-        for="product"
-        class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-        >Select Product</label
-      >
-      <div class="mt-2 sm:mt-0">
-        <select #productSelected (change)="onSelected(productSelected.value)"
-          formControlName="product"
-          id="product"
-          required
-          class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-700 sm:max-w-xs sm:text-sm sm:leading-6"
-        >
-        <option value="selectProduct" selected>Select Product</option>
-          <option *ngFor="let product of products" [value]="product.name">
-            {{ product.name }} ({{ product.price | currency }})
-          </option>
-
-        </select>
-      </div>
-      <div *ngIf="orderForm.get('product')?.touched && orderForm.get('product')?.invalid">
-        <small *ngIf="orderForm.get('product')?.errors?.['required']">Product selection is required.</small>
-      </div>
-    </div>
-   
-    @if (selectedProduct) {
-      <div  class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+      
+      <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
         <label
-          for="quantity"
+          for="product"
           class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-          >Quantity</label
+          >Select Product</label
         >
         <div class="mt-2 sm:mt-0">
-          <input
-            formControlName="quantity"
-            type="text"
-            name="quantity"
-            id="quantity"
-            autocomplete="given-quantity"
+          <select #productSelected (change)="onSelected(productSelected.value)"
+            formControlName="product"
+            id="product"
             required
-            placeholder="quantity"
-            class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ksy-700 sm:max-w-xs sm:text-sm sm:leading-6"
-          />
+            class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
+          >
+          <option value="selectProduct" selected>Select Product</option>
+            <option *ngFor="let product of products" [value]="product.name">
+              {{ product.name }} ({{ product.price | currency }})
+            </option>
+
+          </select>
         </div>
-        <div
-          *ngIf="
-            orderForm.get('quantity')?.touched && orderForm.get('quantity')?.invalid
-          "
-        >
-          <small *ngIf="orderForm.get('quantity')?.errors?.['required']"
-            >quantity is required.</small
-          >
-          <small *ngIf="orderForm.get('quantity')?.errors?.['min']"
-            >Quantity must be greater than 0.</small
-          >
+        <div *ngIf="orderForm.get('product')?.touched && orderForm.get('product')?.invalid">
+          <small class="text-red-500" *ngIf="orderForm.get('product')?.errors?.['required']">Product selection is required.</small>
         </div>
       </div>
-    }
-   
-
+      
+      @if (selectedProduct) {
+        <div  class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+          <label
+            for="quantity"
+            class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+            >Quantity</label
+          >
+          <div class="mt-2 sm:mt-0">
+            <input
+              formControlName="quantity"
+              type="text"
+              name="quantity"
+              id="quantity"
+              autocomplete="given-quantity"
+              required
+              placeholder="quantity"
+              class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ksy-700 sm:max-w-xs sm:text-sm sm:leading-6"
+            />
+          </div>
+          <div
+            *ngIf="
+              orderForm.get('quantity')?.touched && orderForm.get('quantity')?.invalid
+            "
+          >
+            <small class="text-red-500" *ngIf="orderForm.get('quantity')?.errors?.['required']"
+              >quantity is required.</small
+            >
+            <small class="text-red-500" *ngIf="orderForm.get('quantity')?.errors?.['min']"
+              >Quantity must be greater than 0.</small
+            >
+          </div>
+        </div>
+      }
+    </div>
 
     <div class="mt-6 flex items-center justify-end gap-x-6">
       <button
         type="submit"
         [disabled]="orderForm.invalid"
-        class="inline-flex justify-center rounded-md bg-sky-700 px-3 py-2 text-sm font-semibold text-white shadow-sm disabled:bg-gray-500 hover:bg-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700"
+        class="inline-flex justify-center rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-sm disabled:bg-gray-500 hover:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
       >
         Create Order
       </button>

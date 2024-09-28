@@ -1,13 +1,45 @@
-<div>
-    <label for ="name">Product Name:</label>
-    <input id="name" type="text" [(ngModel)]="productName" placeholder="Enter Product Name" >
-
-    <label for="price">Product Price:</label>
-    <input id="price" type="number" [(ngModel)]="productPrice" placeholder="Enter Product Price">
-
-    <button (click)="addProduct()">Add Product</button>
+<div class="mt-5 ml-80 px-4 pt-4 pb-6 sm:px-5 bg-white rounded-md">
+  <div class="flex flex-col">
+    <div class="sm:flex-auto">
+      <h1 class="text-base font-semibold leading-6 text-gray-900">
+        New Product
+      </h1>
+      <p class="mt-2 text-sm text-gray-700">You can add a new products here</p>
+    </div>
+    <div class="mt-8 p-6 rounded-md shadow border-gray-900">
+      <div class="space-y-12 sm:space-y-16">
+        <div class="space-y-8 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:pb-0">
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label for="name" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Product Name</label>
+            <div class="mt-2 sm:mt-0">
+              <input id="name" type="text" [(ngModel)]="productName" placeholder="Enter Product Name"
+                class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
+            </div>
+          </div>
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label for="price" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Product
+              Price </label>
+            <div class="mt-2 sm:mt-0">
+              <input id="price" type="number" [(ngModel)]="productPrice" placeholder="Enter Product Price"
+                class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
+            </div>
+          </div>
+          <div class="pt-6 pb-2 flex items-center justify-end gap-x-6">
+            <button
+            type="submit"
+              (click)="addProduct()"
+              class="inline-flex justify-center rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-sm disabled:bg-gray-500 hover:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">
+              Add Product
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div *ngFor="let product of products">
-  <p>{{ product.name }}: {{ product.price | currency }}</p>
+<div class="mt-5  ml-80 px-4 pt-4 pb-6 sm:px-5 bg-white rounded-md">
+  <div *ngFor="let product of products">
+    <p>{{ product.name }}: {{ product.price | currency }}</p>
+  </div>
 </div>
